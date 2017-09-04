@@ -116,7 +116,6 @@ public class MatisseActivity extends AppCompatActivity implements
         updateBottomToolbar();
 
         mAlbumsAdapter = new AlbumsAdapter(this, null, false);
-        mAlbumsAdapter.getCount();
         mAlbumsSpinner = new AlbumsSpinner(this);
         mAlbumsSpinner.setOnItemSelectedListener(this);
         mAlbumsSpinner.setSelectedTextView((TextView) findViewById(R.id.selected_album));

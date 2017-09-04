@@ -22,6 +22,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.ListPopupWindow;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CursorAdapter;
@@ -33,7 +34,7 @@ import com.zhihu.matisse.internal.utils.Platform;
 
 public class AlbumsSpinner {
 
-    private static final int MAX_SHOWN_COUNT = 6;
+    private static final int MAX_SHOWN_COUNT = 5;
     private CursorAdapter mAdapter;
     private TextView mSelected;
     private ListPopupWindow mListPopupWindow;
@@ -42,11 +43,7 @@ public class AlbumsSpinner {
     public AlbumsSpinner(@NonNull Context context) {
         mListPopupWindow = new ListPopupWindow(context, null, R.attr.listPopupWindowStyle);
         mListPopupWindow.setModal(true);
-        float density = context.getResources().getDisplayMetrics().density;
-        mListPopupWindow.setContentWidth((int) (216 * density));
-        mListPopupWindow.setHorizontalOffset((int) (16 * density));
-        mListPopupWindow.setVerticalOffset((int) (-48 * density));
-
+        mListPopupWindow.setContentWidth(ListPopupWindow.MATCH_PARENT);
         mListPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -113,9 +110,10 @@ public class AlbumsSpinner {
             @Override
             public void onClick(View v) {
                 int itemHeight = v.getResources().getDimensionPixelSize(R.dimen.album_item_height);
+                int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, v.getResources().getDisplayMetrics());
                 mListPopupWindow.setHeight(
-                        mAdapter.getCount() > MAX_SHOWN_COUNT ? itemHeight * MAX_SHOWN_COUNT
-                                : itemHeight * mAdapter.getCount());
+                        mAdapter.getCount() > MAX_SHOWN_COUNT ? itemHeight * MAX_SHOWN_COUNT + margin
+                                : itemHeight * mAdapter.getCount() + margin);
                 mListPopupWindow.show();
             }
         });
