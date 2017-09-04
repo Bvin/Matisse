@@ -21,25 +21,68 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
+    <FrameLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?colorPrimary"
-        android:elevation="4dp"
-        android:theme="?toolbar"
-        tools:targetApi="lollipop">
+        android:layout_height="55dp"
+        android:background="@android:color/white">
+
+        <TextView
+            android:text="取消"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textColor="#323232"
+            android:textSize="14sp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/selected_album"
             android:layout_width="wrap_content"
             android:layout_height="?actionBarSize"
-            android:drawableRight="@drawable/ic_arrow_drop_down_white_24dp"
+            android:drawableRight="@drawable/icon_extension_down"
             android:foreground="?selectableItemBackground"
             android:gravity="center"
-            android:textColor="?attr/album.element.color"
-            android:textSize="20sp"/>
-    </android.support.v7.widget.Toolbar>
+            android:layout_gravity="center"
+            android:textColor="#323232"
+            android:textSize="16sp"/>
+
+
+        <Button
+            android:text="确定"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:layout_gravity="right|center_vertical"
+            android:stateListAnimator="@null"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bg_round_button"
+            android:layout_width="50dp"
+            android:layout_height="24dp"/>
+
+
+        <TextView
+            android:text="6"
+            android:textSize="10sp"
+            android:gravity="center"
+            android:layout_gravity="right"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/bg_message_dot"
+            android:layout_width="12dp"
+            android:layout_height="12dp"/>
+
+    </FrameLayout>
+
+    <View
+        android:id="@+id/pop_anchor"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="50dp"
+        android:layout_below="@id/toolbar"/>
 
     <FrameLayout
         android:id="@+id/bottom_toolbar"
