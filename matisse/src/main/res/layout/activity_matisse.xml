@@ -29,22 +29,22 @@
 
         <TextView
             android:text="取消"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:textColor="#323232"
             android:textSize="14sp"
+            android:gravity="center"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"/>
 
         <TextView
+            tools:text="相册"
             android:id="@+id/selected_album"
             android:layout_width="wrap_content"
-            android:layout_height="?actionBarSize"
+            android:layout_height="match_parent"
             android:drawableRight="@drawable/icon_extension_down"
-            android:foreground="?selectableItemBackground"
+            android:drawablePadding="4dp"
             android:gravity="center"
             android:layout_gravity="center"
             android:textColor="#323232"
@@ -52,6 +52,7 @@
 
 
         <Button
+            android:id="@+id/button_apply"
             android:text="确定"
             android:textColor="@android:color/white"
             android:textSize="14sp"
@@ -67,6 +68,7 @@
             android:text="6"
             android:textSize="10sp"
             android:gravity="center"
+            android:includeFontPadding="false"
             android:layout_gravity="right"
             android:layout_marginRight="12dp"
             android:layout_marginTop="12dp"
@@ -77,48 +79,10 @@
 
     </FrameLayout>
 
-    <View
-        android:id="@+id/pop_anchor"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="50dp"
-        android:layout_below="@id/toolbar"/>
-
-    <FrameLayout
-        android:id="@+id/bottom_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="?attr/bottomToolbar.bg"
-        android:elevation="4dp"
-        tools:targetApi="lollipop">
-
-        <TextView
-            android:id="@+id/button_preview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:foreground="?selectableItemBackground"
-            android:padding="16dp"
-            android:text="@string/button_preview"
-            android:textColor="?attr/bottomToolbar.preview.textColor"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:id="@+id/button_apply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:foreground="?selectableItemBackground"
-            android:padding="16dp"
-            android:textColor="?attr/bottomToolbar.apply.textColor"
-            android:textSize="16sp"/>
-    </FrameLayout>
-
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_toolbar"
         android:layout_below="@id/toolbar"
         android:visibility="gone"/>
 
@@ -126,7 +90,6 @@
         android:id="@+id/empty_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_toolbar"
         android:layout_below="@id/toolbar"
         android:visibility="gone">
 

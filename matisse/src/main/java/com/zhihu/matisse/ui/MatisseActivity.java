@@ -75,7 +75,6 @@ public class MatisseActivity extends AppCompatActivity implements
 
     private AlbumsSpinner mAlbumsSpinner;
     private AlbumsAdapter mAlbumsAdapter;
-    private TextView mButtonPreview;
     private TextView mButtonApply;
     private View mContainer;
     private View mEmptyView;
@@ -100,20 +99,15 @@ public class MatisseActivity extends AppCompatActivity implements
             mMediaStoreCompat.setCaptureStrategy(mSpec.captureStrategy);
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        Drawable navigationIcon = toolbar.getNavigationIcon();
-        TypedArray ta = getTheme().obtainStyledAttributes(new int[]{R.attr.album_element_color});
-        int color = ta.getColor(0, 0);
-        ta.recycle();
-        navigationIcon.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        actionBar.setDisplayHomeAsUpEnabled(false);*/
 
-        mButtonPreview = (TextView) findViewById(R.id.button_preview);
+        //mButtonPreview = (TextView) findViewById(R.id.button_preview);
         mButtonApply = (TextView) findViewById(R.id.button_apply);
-        mButtonPreview.setOnClickListener(this);
+        //mButtonPreview.setOnClickListener(this);
         mButtonApply.setOnClickListener(this);
         mContainer = findViewById(R.id.container);
         mEmptyView = findViewById(R.id.empty_view);
@@ -122,6 +116,7 @@ public class MatisseActivity extends AppCompatActivity implements
         updateBottomToolbar();
 
         mAlbumsAdapter = new AlbumsAdapter(this, null, false);
+        mAlbumsAdapter.getCount();
         mAlbumsSpinner = new AlbumsSpinner(this);
         mAlbumsSpinner.setOnItemSelectedListener(this);
         mAlbumsSpinner.setSelectedTextView((TextView) findViewById(R.id.selected_album));
@@ -216,15 +211,12 @@ public class MatisseActivity extends AppCompatActivity implements
     private void updateBottomToolbar() {
         int selectedCount = mSelectedCollection.count();
         if (selectedCount == 0) {
-            mButtonPreview.setEnabled(false);
             mButtonApply.setEnabled(false);
             mButtonApply.setText(getString(R.string.button_apply_default));
         } else if (selectedCount == 1 && mSpec.singleSelectionModeEnabled()) {
-            mButtonPreview.setEnabled(true);
             mButtonApply.setText(R.string.button_apply_default);
             mButtonApply.setEnabled(true);
         } else {
-            mButtonPreview.setEnabled(true);
             mButtonApply.setEnabled(true);
             mButtonApply.setText(getString(R.string.button_apply, selectedCount));
         }
@@ -232,11 +224,11 @@ public class MatisseActivity extends AppCompatActivity implements
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.button_preview) {
+        /*if (v.getId() == R.id.button_preview) {
             Intent intent = new Intent(this, SelectedPreviewActivity.class);
             intent.putExtra(BasePreviewActivity.EXTRA_DEFAULT_BUNDLE, mSelectedCollection.getDataWithBundle());
             startActivityForResult(intent, REQUEST_CODE_PREVIEW);
-        } else if (v.getId() == R.id.button_apply) {
+        } else*/ if (v.getId() == R.id.button_apply) {
             Intent result = new Intent();
             ArrayList<Uri> selectedUris = (ArrayList<Uri>) mSelectedCollection.asListOfUri();
             result.putParcelableArrayListExtra(EXTRA_RESULT_SELECTION, selectedUris);
