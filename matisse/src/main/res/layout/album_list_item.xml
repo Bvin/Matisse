@@ -54,4 +54,14 @@
         android:maxLines="1"
         android:textColor="?album.dropdown.count.color"
         android:textSize="10sp"/>
+
+    <ImageView
+        android:id="@+id/iv_checked"
+        android:src="@drawable/icon_appraise_picture_selected"
+        android:visibility="gone"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 </RelativeLayout>
