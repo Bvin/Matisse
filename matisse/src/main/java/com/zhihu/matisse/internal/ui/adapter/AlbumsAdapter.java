@@ -37,7 +37,7 @@ import java.io.File;
 public class AlbumsAdapter extends CursorAdapter {
 
     private final Drawable mPlaceholder;
-    private int mCheckedPosition = -1;
+    private int mCheckedPosition;
 
     public AlbumsAdapter(Context context, Cursor c, boolean autoRequery) {
         super(context, c, autoRequery);
