@@ -39,6 +39,7 @@ public class AlbumsSpinner {
     private TextView mSelected;
     private ListPopupWindow mListPopupWindow;
     private AdapterView.OnItemSelectedListener mOnItemSelectedListener;
+    private int mCheckedPosition;
 
     public AlbumsSpinner(@NonNull Context context) {
         mListPopupWindow = new ListPopupWindow(context, null, R.attr.listPopupWindowStyle);
@@ -48,6 +49,7 @@ public class AlbumsSpinner {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mCheckedPosition = position;
                 AlbumsSpinner.this.onItemSelected(parent.getContext(), position);
                 if (mOnItemSelectedListener != null) {
                     mOnItemSelectedListener.onItemSelected(parent, view, position, id);
@@ -119,6 +121,9 @@ public class AlbumsSpinner {
                         mAdapter.getCount() > MAX_SHOWN_COUNT ? itemHeight * MAX_SHOWN_COUNT + margin
                                 : itemHeight * mAdapter.getCount() + margin);
                 mListPopupWindow.show();
+                if (mListPopupWindow.getListView() != null && mCheckedPosition> MAX_SHOWN_COUNT-1 ) {
+                    mListPopupWindow.getListView().setSelection(mCheckedPosition);
+                }
             }
         });
         mSelected.setOnTouchListener(mListPopupWindow.createDragToOpenListener(mSelected));
