@@ -71,6 +71,9 @@ public class AlbumsAdapter extends CursorAdapter {
         SelectionSpec.getInstance().imageEngine.loadThumbnail(context, context.getResources().getDimensionPixelSize(R
                         .dimen.media_grid_size), mPlaceholder,
                 (ImageView) view.findViewById(R.id.album_cover), Uri.fromFile(new File(album.getCoverPath())));
+        //最后一行保留bottom padding
+        view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(),
+                cursor.getCount()-1 == cursor.getPosition() ? view.getPaddingTop() : 0);
     }
 
 
