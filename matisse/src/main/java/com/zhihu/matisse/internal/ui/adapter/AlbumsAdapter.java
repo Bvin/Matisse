@@ -37,8 +37,6 @@ import java.io.File;
 public class AlbumsAdapter extends CursorAdapter {
 
     private final Drawable mPlaceholder;
-    private View mPreviousChecked;
-    private View.OnClickListener mOnClickListener;
     private int mCheckedPosition = -1;
 
     public AlbumsAdapter(Context context, Cursor c, boolean autoRequery) {
@@ -70,38 +68,14 @@ public class AlbumsAdapter extends CursorAdapter {
         ((TextView) view.findViewById(R.id.album_name)).setText(album.getDisplayName(context));
         ((TextView) view.findViewById(R.id.album_media_count)).setText(String.valueOf(album.getCount()));
         view.findViewById(R.id.iv_checked).setVisibility(mCheckedPosition == cursor.getPosition() ? View.VISIBLE : View.GONE);
-        //view.findViewById(R.id.iv_checked).setVisibility(View.GONE);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mPreviousChecked != null) {
-                    // 虽然bindView中隐藏了，但是如果在同一个可见高度内并不会再次调用bindView，所以
-                    // 要用记录上次选中的那行，点击后隐藏它
-                    //mPreviousChecked.setVisibility(View.GONE);
-                }
-                mPreviousChecked = v;//.findViewById(R.id.iv_checked);
-                if (mOnClickListener != null) {
-                    mOnClickListener.onClick(v);
-                }
-                mCheckedPosition = cursor.getPosition();
-            }
-        });
-        // do not need to load animated Gif
         SelectionSpec.getInstance().imageEngine.loadThumbnail(context, context.getResources().getDimensionPixelSize(R
                         .dimen.media_grid_size), mPlaceholder,
                 (ImageView) view.findViewById(R.id.album_cover), Uri.fromFile(new File(album.getCoverPath())));
     }
 
-    public void setOnClickListener(View.OnClickListener onClickListener) {
-        mOnClickListener = onClickListener;
-    }
 
-    public void showPreviourChecked(){
-        if (mPreviousChecked != null) {
-            mPreviousChecked.setVisibility(View.VISIBLE);
-            mPreviousChecked.setBackgroundColor(Color.parseColor("#624"));
-        }
+    public void setCheckedPosition(int checkedPosition) {
+        mCheckedPosition = checkedPosition;
     }
-
 
 }

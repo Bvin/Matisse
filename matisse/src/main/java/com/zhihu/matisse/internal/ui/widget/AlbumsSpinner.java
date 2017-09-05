@@ -22,11 +22,9 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.ListPopupWindow;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import com.zhihu.matisse.R;
@@ -53,6 +51,10 @@ public class AlbumsSpinner {
                 AlbumsSpinner.this.onItemSelected(parent.getContext(), position);
                 if (mOnItemSelectedListener != null) {
                     mOnItemSelectedListener.onItemSelected(parent, view, position, id);
+                }
+                if (mAdapter != null) {
+                    mAdapter.setCheckedPosition(position);
+                    mAdapter.notifyDataSetChanged();
                 }
             }
         });
@@ -92,22 +94,6 @@ public class AlbumsSpinner {
 
     public void setAdapter(final AlbumsAdapter adapter) {
         mListPopupWindow.setAdapter(adapter);
-        adapter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AdapterView adapterView = mListPopupWindow.getListView();
-                if (adapterView != null) {
-                    int position = adapterView.getPositionForView(v);
-                    if (position >= 0) {
-                        onItemSelected(v.getContext(), position);
-                        adapter.notifyDataSetChanged();
-                        if (mOnItemSelectedListener != null) {
-                            mOnItemSelectedListener.onItemSelected(adapterView, v, position, adapterView.getItemIdAtPosition(position));
-                        }
-                    }
-                }
-            }
-        });
         mAdapter = adapter;
     }
 
