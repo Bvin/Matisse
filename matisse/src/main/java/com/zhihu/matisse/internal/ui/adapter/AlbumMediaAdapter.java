@@ -25,6 +25,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Checkable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -67,7 +68,7 @@ public class AlbumMediaAdapter extends
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_CAPTURE) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.photo_capture_item, parent, false);
-            CaptureViewHolder holder = new CaptureViewHolder(v);
+            RecyclerView.ViewHolder holder = new RecyclerView.ViewHolder(v){};
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -86,7 +87,7 @@ public class AlbumMediaAdapter extends
 
     @Override
     protected void onBindViewHolder(final RecyclerView.ViewHolder holder, Cursor cursor) {
-        if (holder instanceof CaptureViewHolder) {
+        /*if (holder instanceof CaptureViewHolder) {
             CaptureViewHolder captureViewHolder = (CaptureViewHolder) holder;
             Drawable[] drawables = captureViewHolder.mHint.getCompoundDrawables();
             TypedArray ta = holder.itemView.getContext().getTheme().obtainStyledAttributes(
@@ -98,7 +99,7 @@ public class AlbumMediaAdapter extends
                     drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
                 }
             }
-        } else if (holder instanceof MediaViewHolder) {
+        } else*/ if (holder instanceof MediaViewHolder) {
             MediaViewHolder mediaViewHolder = (MediaViewHolder) holder;
 
             final Item item = Item.valueOf(cursor);
@@ -154,7 +155,7 @@ public class AlbumMediaAdapter extends
     }
 
     @Override
-    public void onCheckViewClicked(CheckView checkView, Item item, RecyclerView.ViewHolder holder) {
+    public void onCheckViewClicked(Checkable checkView, Item item, RecyclerView.ViewHolder holder) {
         if (mSelectionSpec.countable) {
             int checkedNum = mSelectedCollection.checkedNumOf(item);
             if (checkedNum == CheckView.UNCHECKED) {
@@ -263,17 +264,6 @@ public class AlbumMediaAdapter extends
         MediaViewHolder(View itemView) {
             super(itemView);
             mMediaGrid = (MediaGrid) itemView;
-        }
-    }
-
-    private static class CaptureViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView mHint;
-
-        CaptureViewHolder(View itemView) {
-            super(itemView);
-
-            mHint = (TextView) itemView.findViewById(R.id.hint);
         }
     }
 

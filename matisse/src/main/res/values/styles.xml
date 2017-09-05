@@ -28,10 +28,10 @@
         <item name="album.thumbnail.placeholder">@color/zhihu_album_dropdown_thumbnail_placeholder</item>
         <item name="album.emptyView">@drawable/ic_empty_zhihu</item>
         <item name="album.emptyView.textColor">@color/zhihu_album_empty_view</item>
-        <item name="item.placeholder">@color/zhihu_item_placeholder</item>
+        <item name="item.placeholder">@android:color/white</item>
         <item name="item.checkCircle.backgroundColor">@color/zhihu_item_checkCircle_backgroundColor</item>
         <item name="item.checkCircle.borderColor">@color/zhihu_item_checkCircle_borderColor</item>
-        <item name="page.bg">@color/zhihu_page_bg</item>
+        <item name="page.bg">#dedede</item>
         <item name="bottomToolbar.bg">@color/zhihu_bottom_toolbar_bg</item>
         <item name="bottomToolbar.preview.textColor">@color/zhihu_bottom_toolbar_preview</item>
         <item name="bottomToolbar.apply.textColor">@color/zhihu_bottom_toolbar_apply</item>

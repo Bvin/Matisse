@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="right"
+    android:layout_marginRight="16dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:text="确定"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:stateListAnimator="@null"
+        android:background="@drawable/bg_round_button"
+        android:layout_width="50dp"
+        android:layout_height="24dp"/>
+
+
+    <TextView
+        android:text="6"
+        android:textSize="10sp"
+        android:gravity="center"
+        android:layout_gravity="right"
+        android:textColor="@android:color/white"
+        android:background="@drawable/bg_message_dot"
+        android:layout_width="12dp"
+        android:layout_height="12dp"/>
+
+
+</FrameLayout>

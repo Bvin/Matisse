@@ -21,16 +21,10 @@
     android:background="?item.placeholder"
     android:foreground="?selectableItemBackground">
 
-    <TextView
-        android:id="@+id/hint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:src="@drawable/icon_appraise_picture_camera"
         android:layout_gravity="center"
-        android:drawablePadding="8dp"
-        android:drawableTop="@drawable/ic_photo_camera_white_24dp"
-        android:gravity="center"
-        android:text="@string/photo_grid_capture"
-        android:textColor="?capture.textColor"
-        android:textSize="14sp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </com.zhihu.matisse.internal.ui.widget.SquareFrameLayout>

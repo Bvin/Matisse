@@ -22,6 +22,9 @@ import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.Checkable;
+import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,9 +35,11 @@ import com.zhihu.matisse.internal.entity.SelectionSpec;
 public class MediaGrid extends SquareFrameLayout implements View.OnClickListener {
 
     private ImageView mThumbnail;
-    private CheckView mCheckView;
+    private CheckBox mCheckView;
     private ImageView mGifTag;
     private TextView mVideoDuration;
+
+    private View mSelectMask;
 
     private Item mMedia;
     private PreBindInfo mPreBindInfo;
@@ -54,9 +59,11 @@ public class MediaGrid extends SquareFrameLayout implements View.OnClickListener
         LayoutInflater.from(context).inflate(R.layout.media_grid_content, this, true);
 
         mThumbnail = (ImageView) findViewById(R.id.media_thumbnail);
-        mCheckView = (CheckView) findViewById(R.id.check_view);
+        mCheckView = (CheckBox) findViewById(R.id.check_view);
         mGifTag = (ImageView) findViewById(R.id.gif);
         mVideoDuration = (TextView) findViewById(R.id.video_duration);
+
+        mSelectMask = findViewById(R.id.select_mask);
 
         mThumbnail.setOnClickListener(this);
         mCheckView.setOnClickListener(this);
@@ -94,7 +101,7 @@ public class MediaGrid extends SquareFrameLayout implements View.OnClickListener
     }
 
     private void initCheckView() {
-        mCheckView.setCountable(mPreBindInfo.mCheckViewCountable);
+        //mCheckView.setCountable(mPreBindInfo.mCheckViewCountable);
     }
 
     public void setCheckEnabled(boolean enabled) {
@@ -102,11 +109,12 @@ public class MediaGrid extends SquareFrameLayout implements View.OnClickListener
     }
 
     public void setCheckedNum(int checkedNum) {
-        mCheckView.setCheckedNum(checkedNum);
+        setChecked(checkedNum != CheckView.UNCHECKED);
     }
 
     public void setChecked(boolean checked) {
         mCheckView.setChecked(checked);
+        mSelectMask.setVisibility(checked ? VISIBLE : GONE);
     }
 
     private void setImage() {
@@ -140,7 +148,7 @@ public class MediaGrid extends SquareFrameLayout implements View.OnClickListener
 
         void onThumbnailClicked(ImageView thumbnail, Item item, RecyclerView.ViewHolder holder);
 
-        void onCheckViewClicked(CheckView checkView, Item item, RecyclerView.ViewHolder holder);
+        void onCheckViewClicked(Checkable checkView, Item item, RecyclerView.ViewHolder holder);
     }
 
     public static class PreBindInfo {

@@ -21,8 +21,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <com.zhihu.matisse.internal.ui.widget.CheckView
+    <View
+        android:id="@+id/select_mask"
+        android:background="#4C000000"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!--<com.zhihu.matisse.internal.ui.widget.CheckView
         android:id="@+id/check_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"/>-->
+
+    <CheckBox
+        android:id="@+id/check_view"
+        android:button="@drawable/check_button"
+        android:layout_margin="@dimen/media_grid_spacing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|right"/>

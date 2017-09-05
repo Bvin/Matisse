@@ -17,10 +17,7 @@ package com.zhihu.matisse.ui;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.database.Cursor;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,9 +25,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -45,7 +40,6 @@ import com.zhihu.matisse.internal.model.SelectedItemCollection;
 import com.zhihu.matisse.internal.ui.AlbumPreviewActivity;
 import com.zhihu.matisse.internal.ui.BasePreviewActivity;
 import com.zhihu.matisse.internal.ui.MediaSelectionFragment;
-import com.zhihu.matisse.internal.ui.SelectedPreviewActivity;
 import com.zhihu.matisse.internal.ui.adapter.AlbumMediaAdapter;
 import com.zhihu.matisse.internal.ui.adapter.AlbumsAdapter;
 import com.zhihu.matisse.internal.ui.widget.AlbumsSpinner;
@@ -79,6 +73,8 @@ public class MatisseActivity extends AppCompatActivity implements
     private View mContainer;
     private View mEmptyView;
 
+    private TextView mSelectedCount;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         // programmatically set theme before super.onCreate()
@@ -107,13 +103,14 @@ public class MatisseActivity extends AppCompatActivity implements
 
         //mButtonPreview = (TextView) findViewById(R.id.button_preview);
         mButtonApply = (TextView) findViewById(R.id.button_apply);
+        mSelectedCount = (TextView) findViewById(R.id.selected_count);
         //mButtonPreview.setOnClickListener(this);
         mButtonApply.setOnClickListener(this);
         mContainer = findViewById(R.id.container);
         mEmptyView = findViewById(R.id.empty_view);
 
         mSelectedCollection.onCreate(savedInstanceState);
-        updateBottomToolbar();
+        updateSelectedCount();
 
         mAlbumsAdapter = new AlbumsAdapter(this, null, false);
         mAlbumsSpinner = new AlbumsSpinner(this);
@@ -186,7 +183,7 @@ public class MatisseActivity extends AppCompatActivity implements
                 if (mediaSelectionFragment instanceof MediaSelectionFragment) {
                     ((MediaSelectionFragment) mediaSelectionFragment).refreshMediaGrid();
                 }
-                updateBottomToolbar();
+                updateSelectedCount();
             }
         } else if (requestCode == REQUEST_CODE_CAPTURE) {
             // Just pass the data back to previous calling Activity.
@@ -207,17 +204,22 @@ public class MatisseActivity extends AppCompatActivity implements
         }
     }
 
-    private void updateBottomToolbar() {
+    private void updateSelectedCount() {
         int selectedCount = mSelectedCollection.count();
         if (selectedCount == 0) {
             mButtonApply.setEnabled(false);
-            mButtonApply.setText(getString(R.string.button_apply_default));
+            //mButtonApply.setText(getString(R.string.button_apply_default));
+            mSelectedCount.setVisibility(View.GONE);
         } else if (selectedCount == 1 && mSpec.singleSelectionModeEnabled()) {
-            mButtonApply.setText(R.string.button_apply_default);
+            //mButtonApply.setText(R.string.button_apply_default);
             mButtonApply.setEnabled(true);
+            mSelectedCount.setText(String.valueOf(selectedCount));
+            mSelectedCount.setVisibility(View.VISIBLE);
         } else {
             mButtonApply.setEnabled(true);
-            mButtonApply.setText(getString(R.string.button_apply, selectedCount));
+            //mButtonApply.setText(getString(R.string.button_apply, selectedCount));
+            mSelectedCount.setText(String.valueOf(selectedCount));
+            mSelectedCount.setVisibility(View.VISIBLE);
         }
     }
 
@@ -298,7 +300,7 @@ public class MatisseActivity extends AppCompatActivity implements
     @Override
     public void onUpdate() {
         // notify bottom toolbar that check state changed.
-        updateBottomToolbar();
+        updateSelectedCount();
     }
 
     @Override
