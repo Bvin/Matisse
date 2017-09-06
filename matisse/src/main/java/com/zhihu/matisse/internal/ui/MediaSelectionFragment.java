@@ -135,9 +135,11 @@ public class MediaSelectionFragment extends Fragment implements
 
     @Override
     public void onAlbumMediaLoad(Cursor cursor) {
-        AlbumMediaCollection.AlbumMediaCallbacks callback = getActivityCallbacks();
-        if (callback != null) {
-            getActivityCallbacks().onAlbumMediaLoad(cursor);
+        {// 留出预处理空间，主要是前期添加/移除选中的item
+            AlbumMediaCollection.AlbumMediaCallbacks callback = getActivityCallbacks();
+            if (callback != null) {
+                getActivityCallbacks().onAlbumMediaLoad(cursor);
+            }
         }
         mAdapter.swapCursor(cursor);
         mAdapter.notifyCheckStateChanged();

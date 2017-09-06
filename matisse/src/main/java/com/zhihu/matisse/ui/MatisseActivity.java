@@ -352,11 +352,21 @@ public class MatisseActivity extends AppCompatActivity implements
     @Override
     public void onAlbumMediaLoad(Cursor cursor) {
         if (mNewCaptureFilePath != null) {// 扫描新照片
+
+            // 如果达到最多选择数，则移除掉第一个Item
+            if (!mSelectedCollection.isEmpty() && mSelectedCollection.maxSelectableReached()) {
+                Item first = mSelectedCollection.asList().get(0);
+                if (first != null) {
+                    mSelectedCollection.remove(first);
+                }
+            }
+
             cursor.moveToPosition(1);
             Item item = Item.valueOf(cursor);
             if (mNewCaptureFilePath.equals(item.path)) {
                 mSelectedCollection.add(item);
             }
+
             mNewCaptureFilePath = null;
         }
     }
