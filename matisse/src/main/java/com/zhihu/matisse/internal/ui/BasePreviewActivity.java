@@ -47,11 +47,6 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
 
     protected PreviewPagerAdapter mAdapter;
 
-    //protected CheckView mCheckView;
-    protected TextView mButtonBack;
-    protected TextView mButtonApply;
-    protected TextView mSize;
-
     protected int mPreviousPos = -1;
     private TextView mSelectCount;
 
@@ -74,12 +69,6 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
         } else {
             mSelectedCollection.onCreate(savedInstanceState);
         }
-
-        mButtonBack = (TextView) findViewById(R.id.button_back);
-        mButtonApply = (TextView) findViewById(R.id.button_apply);
-        mSize = (TextView) findViewById(R.id.size);
-        mButtonBack.setOnClickListener(this);
-        mButtonApply.setOnClickListener(this);
 
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.addOnPageChangeListener(this);
@@ -144,9 +133,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.button_back) {
-            onBackPressed();
-        } else if (v.getId() == R.id.button_apply) {
+        if (v.getId() == R.id.button_apply) {
             sendBackResult(true);
             finish();
         }
@@ -209,10 +196,10 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
 
     protected void updateSize(Item item) {
         if (item.isGif()) {
-            mSize.setVisibility(View.VISIBLE);
-            mSize.setText(PhotoMetadataUtils.getSizeInMB(item.size) + "M");
+            //mSize.setVisibility(View.VISIBLE);
+            //mSize.setText(PhotoMetadataUtils.getSizeInMB(item.size) + "M");
         } else {
-            mSize.setVisibility(View.GONE);
+            //mSize.setVisibility(View.GONE);
         }
     }
 
