@@ -33,11 +33,11 @@ public class SelectedPreviewActivity extends BasePreviewActivity {
         List<Item> selected = bundle.getParcelableArrayList(SelectedItemCollection.STATE_SELECTION);
         mAdapter.addAll(selected);
         mAdapter.notifyDataSetChanged();
-        if (mSpec.countable) {
+        /*if (mSpec.countable) {
             mCheckView.setCheckedNum(1);
         } else {
             mCheckView.setChecked(true);
-        }
+        }*/
         mPreviousPos = 0;
         updateSize(selected.get(0));
     }

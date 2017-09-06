@@ -31,7 +31,6 @@ import com.zhihu.matisse.internal.entity.Item;
 import com.zhihu.matisse.internal.entity.SelectionSpec;
 import com.zhihu.matisse.internal.model.SelectedItemCollection;
 import com.zhihu.matisse.internal.ui.adapter.PreviewPagerAdapter;
-import com.zhihu.matisse.internal.ui.widget.CheckView;
 import com.zhihu.matisse.internal.utils.PhotoMetadataUtils;
 import com.zhihu.matisse.internal.utils.Platform;
 
@@ -48,12 +47,13 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
 
     protected PreviewPagerAdapter mAdapter;
 
-    protected CheckView mCheckView;
+    //protected CheckView mCheckView;
     protected TextView mButtonBack;
     protected TextView mButtonApply;
     protected TextView mSize;
 
     protected int mPreviousPos = -1;
+    private TextView mSelectCount;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,7 +85,8 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
         mPager.addOnPageChangeListener(this);
         mAdapter = new PreviewPagerAdapter(getSupportFragmentManager(), null);
         mPager.setAdapter(mAdapter);
-        mCheckView = (CheckView) findViewById(R.id.check_view);
+        mSelectCount = (TextView) findViewById(R.id.selected_count);
+        /*mCheckView = (CheckView) findViewById(R.id.check_view);
         mCheckView.setCountable(mSpec.countable);
 
         mCheckView.setOnClickListener(new View.OnClickListener() {
@@ -112,8 +113,21 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
                 }
                 updateApplyButton();
             }
-        });
+        });*/
         updateApplyButton();
+    }
+
+    public void back(View view){
+        onBackPressed();
+    }
+
+    public void delete(View view){
+        Item item = mAdapter.getMediaItem(mPager.getCurrentItem());
+        if (mSelectedCollection.isSelected(item)) {
+            mSelectedCollection.remove(item);
+        }else {//没有选中的不能删除
+            //mSelectedCollection.add(item);
+        }
     }
 
     @Override
@@ -152,21 +166,22 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
             Item item = adapter.getMediaItem(position);
             if (mSpec.countable) {
                 int checkedNum = mSelectedCollection.checkedNumOf(item);
-                mCheckView.setCheckedNum(checkedNum);
+                /*mCheckView.setCheckedNum(checkedNum);
                 if (checkedNum > 0) {
                     mCheckView.setEnabled(true);
                 } else {
                     mCheckView.setEnabled(!mSelectedCollection.maxSelectableReached());
-                }
+                }*/
             } else {
                 boolean checked = mSelectedCollection.isSelected(item);
-                mCheckView.setChecked(checked);
+                /*mCheckView.setChecked(checked);
                 if (checked) {
                     mCheckView.setEnabled(true);
                 } else {
                     mCheckView.setEnabled(!mSelectedCollection.maxSelectableReached());
-                }
+                }*/
             }
+            mSelectCount.setText(position+"/"+mSelectedCollection.count());
             updateSize(item);
         }
         mPreviousPos = position;
@@ -179,7 +194,8 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
 
     private void updateApplyButton() {
         int selectedCount = mSelectedCollection.count();
-        if (selectedCount == 0) {
+        mSelectCount.setText(selectedCount+"/"+selectedCount);
+        /*if (selectedCount == 0) {
             mButtonApply.setText(R.string.button_apply_default);
             mButtonApply.setEnabled(false);
         } else if (selectedCount == 1 && mSpec.singleSelectionModeEnabled()) {
@@ -188,7 +204,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
         } else {
             mButtonApply.setEnabled(true);
             mButtonApply.setText(getString(R.string.button_apply, selectedCount));
-        }
+        }*/
     }
 
     protected void updateSize(Item item) {
