@@ -245,7 +245,7 @@ public class MatisseActivity extends AppCompatActivity implements
         mAlbumCollection.setStateCurrentSelection(position);
         mAlbumsAdapter.getCursor().moveToPosition(position);
         Album album = Album.valueOf(mAlbumsAdapter.getCursor());
-        if (album.isAll() && SelectionSpec.getInstance().capture) {
+        if (/*album.isAll() && */SelectionSpec.getInstance().capture) {
             album.addCaptureCount();
         }
         onAlbumSelected(album);
@@ -269,7 +269,7 @@ public class MatisseActivity extends AppCompatActivity implements
                 mAlbumsSpinner.setSelection(MatisseActivity.this,
                         mAlbumCollection.getCurrentSelection());
                 Album album = Album.valueOf(cursor);
-                if (album.isAll() && SelectionSpec.getInstance().capture) {
+                if (/*album.isAll() && */SelectionSpec.getInstance().capture) {
                     album.addCaptureCount();
                 }
                 onAlbumSelected(album);

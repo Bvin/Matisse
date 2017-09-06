@@ -117,7 +117,6 @@ public class AlbumMediaLoader extends CursorLoader {
                 selection = SELECTION_ALL;
                 selectionArgs = SELECTION_ALL_ARGS;
             }
-            enableCapture = capture;
         } else {
             if (SelectionSpec.getInstance().onlyShowImages()) {
                 selection = SELECTION_ALBUM_FOR_SINGLE_MEDIA_TYPE;
@@ -131,9 +130,8 @@ public class AlbumMediaLoader extends CursorLoader {
                 selection = SELECTION_ALBUM;
                 selectionArgs = getSelectionAlbumArgs(album.getId());
             }
-            enableCapture = false;
         }
-        return new AlbumMediaLoader(context, selection, selectionArgs, enableCapture);
+        return new AlbumMediaLoader(context, selection, selectionArgs, capture);
     }
 
     @Override

@@ -51,7 +51,7 @@ public class AlbumMediaCollection implements LoaderManager.LoaderCallbacks<Curso
         }
 
         return AlbumMediaLoader.newInstance(context, album,
-                album.isAll() && args.getBoolean(ARGS_ENABLE_CAPTURE, false));
+                /*album.isAll() && */args.getBoolean(ARGS_ENABLE_CAPTURE, false));
     }
 
     @Override
