@@ -162,11 +162,11 @@ public class MediaSelectionFragment extends Fragment implements
     }
 
     @Override
-    public void onMediaClick(Album album, Item item, int adapterPosition) {
+    public boolean onMediaClick(Album album, Item item, int adapterPosition) {
         if (mOnMediaClickListener != null) {
-            mOnMediaClickListener.onMediaClick((Album) getArguments().getParcelable(EXTRA_ALBUM),
+            return mOnMediaClickListener.onMediaClick((Album) getArguments().getParcelable(EXTRA_ALBUM),
                     item, adapterPosition);
-        }
+        } return true;
     }
 
     public interface SelectionProvider {

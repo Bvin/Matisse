@@ -146,10 +146,10 @@ public class AlbumMediaAdapter extends
     }
 
     @Override
-    public void onThumbnailClicked(ImageView thumbnail, Item item, RecyclerView.ViewHolder holder) {
+    public boolean onThumbnailClicked(ImageView thumbnail, Item item, RecyclerView.ViewHolder holder) {
         if (mOnMediaClickListener != null) {
-            mOnMediaClickListener.onMediaClick(null, item, holder.getAdapterPosition());
-        }
+            return mOnMediaClickListener.onMediaClick(null, item, holder.getAdapterPosition());
+        } return true;
     }
 
     @Override
@@ -248,7 +248,14 @@ public class AlbumMediaAdapter extends
     }
 
     public interface OnMediaClickListener {
-        void onMediaClick(Album album, Item item, int adapterPosition);
+        /**
+         * onMediaClick
+         * @param album
+         * @param item
+         * @param adapterPosition
+         * @return 返回true表示消费这个事件,false 将调用onCheckViewClicked方法，即点击事件代理为选择事件
+         */
+        boolean onMediaClick(Album album, Item item, int adapterPosition);
     }
 
     public interface OnPhotoCapture {

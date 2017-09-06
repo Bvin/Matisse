@@ -73,7 +73,9 @@ public class MediaGrid extends SquareFrameLayout implements View.OnClickListener
     public void onClick(View v) {
         if (mListener != null) {
             if (v == mThumbnail) {
-                mListener.onThumbnailClicked(mThumbnail, mMedia, mPreBindInfo.mViewHolder);
+                // 未消费此事件，将会代理为选择事件
+                if (!mListener.onThumbnailClicked(mThumbnail, mMedia, mPreBindInfo.mViewHolder))
+                    mListener.onCheckViewClicked(mCheckView, mMedia, mPreBindInfo.mViewHolder);
             } else if (v == mCheckView) {
                 mListener.onCheckViewClicked(mCheckView, mMedia, mPreBindInfo.mViewHolder);
             }
@@ -146,7 +148,14 @@ public class MediaGrid extends SquareFrameLayout implements View.OnClickListener
 
     public interface OnMediaGridClickListener {
 
-        void onThumbnailClicked(ImageView thumbnail, Item item, RecyclerView.ViewHolder holder);
+        /**
+         * onThumbnailClicked
+         * @param thumbnail
+         * @param item
+         * @param holder
+         * @return 返回true表示消费这个事件,false 将调用onCheckViewClicked方法，即点击事件代理为选择事件
+         */
+        boolean onThumbnailClicked(ImageView thumbnail, Item item, RecyclerView.ViewHolder holder);
 
         void onCheckViewClicked(Checkable checkView, Item item, RecyclerView.ViewHolder holder);
     }
