@@ -40,8 +40,10 @@ public class AlbumsSpinner {
     private ListPopupWindow mListPopupWindow;
     private AdapterView.OnItemSelectedListener mOnItemSelectedListener;
     private int mCheckedPosition;
+    private Context mContext;
 
     public AlbumsSpinner(@NonNull Context context) {
+        mContext = context;
         mListPopupWindow = new ListPopupWindow(context, null, R.attr.listPopupWindowStyle);
         mListPopupWindow.setModal(true);
         mListPopupWindow.setContentWidth(ListPopupWindow.MATCH_PARENT);
@@ -49,17 +51,21 @@ public class AlbumsSpinner {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mCheckedPosition = position;
-                AlbumsSpinner.this.onItemSelected(parent.getContext(), position);
-                if (mOnItemSelectedListener != null) {
-                    mOnItemSelectedListener.onItemSelected(parent, view, position, id);
-                }
-                if (mAdapter != null) {
-                    mAdapter.setCheckedPosition(position);
-                    mAdapter.notifyDataSetChanged();
-                }
+                AlbumsSpinner.this.onItemClick(parent, view, position, id);
             }
         });
+    }
+
+    private void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        mCheckedPosition = position;
+        AlbumsSpinner.this.onItemSelected(parent.getContext(), position);
+        if (mOnItemSelectedListener != null) {
+            mOnItemSelectedListener.onItemSelected(parent, view, position, id);
+        }
+        if (mAdapter != null) {
+            mAdapter.setCheckedPosition(position);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     public void setOnItemSelectedListener(AdapterView.OnItemSelectedListener listener) {
@@ -69,6 +75,11 @@ public class AlbumsSpinner {
     public void setSelection(Context context, int position) {
         mListPopupWindow.setSelection(position);
         onItemSelected(context, position);
+    }
+
+    public void performItemClick(int position) {
+        mSelected.performClick();
+        mListPopupWindow.performItemClick(position);
     }
 
     private void onItemSelected(Context context, int position) {

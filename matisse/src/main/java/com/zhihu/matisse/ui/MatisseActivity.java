@@ -212,7 +212,7 @@ public class MatisseActivity extends AppCompatActivity implements
             @Override
             public void onMediaScannerConnected() {
                 mMediaScanner.scanFile(path, "image/jpeg");
-                onAlbumLoad(mAlbumsAdapter.getCursor());
+                mAlbumsSpinner.performItemClick(0);
             }
 
             @Override
