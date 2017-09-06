@@ -151,4 +151,15 @@ public class Item implements Parcelable {
         result = 31 * result + Long.valueOf(duration).hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", mimeType='" + mimeType + '\'' +
+                ", uri=" + uri +
+                ", size=" + size +
+                ", duration=" + duration +
+                '}';
+    }
 }

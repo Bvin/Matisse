@@ -127,13 +127,29 @@ public class MediaSelectionFragment extends Fragment implements
         mAdapter.refreshSelection();
     }
 
-    @Override
-    public void onAlbumMediaLoad(Cursor cursor) {
-        mAdapter.swapCursor(cursor);
+    private AlbumMediaCollection.AlbumMediaCallbacks getActivityCallbacks() {
+        if (getActivity() != null && getActivity() instanceof AlbumMediaCollection.AlbumMediaCallbacks) {
+            return ((AlbumMediaCollection.AlbumMediaCallbacks) getActivity());
+        } else return null;
     }
 
     @Override
+    public void onAlbumMediaLoad(Cursor cursor) {
+        AlbumMediaCollection.AlbumMediaCallbacks callback = getActivityCallbacks();
+        if (callback != null) {
+            getActivityCallbacks().onAlbumMediaLoad(cursor);
+        }
+        mAdapter.swapCursor(cursor);
+        mAdapter.notifyCheckStateChanged();
+    }
+
+
+    @Override
     public void onAlbumMediaReset() {
+        AlbumMediaCollection.AlbumMediaCallbacks callback = getActivityCallbacks();
+        if (callback != null) {
+            getActivityCallbacks().onAlbumMediaReset();
+        }
         mAdapter.swapCursor(null);
     }
 
