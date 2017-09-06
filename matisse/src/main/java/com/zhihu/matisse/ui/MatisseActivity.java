@@ -309,7 +309,7 @@ public class MatisseActivity extends AppCompatActivity implements
         intent.putExtra(AlbumPreviewActivity.EXTRA_ALBUM, album);
         intent.putExtra(AlbumPreviewActivity.EXTRA_ITEM, item);
         intent.putExtra(BasePreviewActivity.EXTRA_DEFAULT_BUNDLE, mSelectedCollection.getDataWithBundle());
-        startActivityForResult(intent, REQUEST_CODE_PREVIEW);
+        //startActivityForResult(intent, REQUEST_CODE_PREVIEW);
     }
 
     @Override
