@@ -18,6 +18,7 @@ package com.zhihu.matisse.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -74,6 +75,7 @@ public class MatisseActivity extends AppCompatActivity implements
     private View mEmptyView;
 
     private TextView mSelectedCount;
+    private MediaScannerConnection mMediaScanner;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -189,6 +191,7 @@ public class MatisseActivity extends AppCompatActivity implements
             // Just pass the data back to previous calling Activity.
             Uri contentUri = mMediaStoreCompat.getCurrentPhotoUri();
             String path = mMediaStoreCompat.getCurrentPhotoPath();
+            scanCapturePhoto(path);
             ArrayList<Uri> selected = new ArrayList<>();
             selected.add(contentUri);
             ArrayList<String> selectedPath = new ArrayList<>();
@@ -200,8 +203,25 @@ public class MatisseActivity extends AppCompatActivity implements
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
                 MatisseActivity.this.revokeUriPermission(contentUri,
                         Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            finish();
+            //finish();
         }
+    }
+
+    private void scanCapturePhoto(final String path){
+       mMediaScanner = new MediaScannerConnection(this, new MediaScannerConnection.MediaScannerConnectionClient() {
+            @Override
+            public void onMediaScannerConnected() {
+                mMediaScanner.scanFile(path, "image/jpeg");
+                onAlbumLoad(mAlbumsAdapter.getCursor());
+            }
+
+            @Override
+            public void onScanCompleted(String path, Uri uri) {
+                mMediaScanner.disconnect();
+                mMediaScanner = null;
+            }
+        });
+        mMediaScanner.connect();
     }
 
     private void updateSelectedCount() {
