@@ -27,7 +27,6 @@ import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -78,6 +77,8 @@ public class MatisseActivity extends AppCompatActivity implements
 
     private TextView mSelectedCount;
     private MediaScannerConnection mMediaScanner;
+
+    private String mNewCaptureFilePath;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -193,6 +194,7 @@ public class MatisseActivity extends AppCompatActivity implements
             // Just pass the data back to previous calling Activity.
             Uri contentUri = mMediaStoreCompat.getCurrentPhotoUri();
             String path = mMediaStoreCompat.getCurrentPhotoPath();
+            mNewCaptureFilePath = path;
             scanCapturePhoto(path);
             ArrayList<Uri> selected = new ArrayList<>();
             selected.add(contentUri);
@@ -348,9 +350,14 @@ public class MatisseActivity extends AppCompatActivity implements
 
     @Override
     public void onAlbumMediaLoad(Cursor cursor) {
-        cursor.moveToPosition(1);
-        Item item = Item.valueOf(cursor);
-        mSelectedCollection.add(item);
+        if (mNewCaptureFilePath != null) {// 扫描新照片
+            cursor.moveToPosition(1);
+            Item item = Item.valueOf(cursor);
+            if (mNewCaptureFilePath.equals(item.path)) {
+                mSelectedCollection.add(item);
+            }
+            mNewCaptureFilePath = null;
+        }
     }
 
     @Override

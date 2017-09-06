@@ -44,11 +44,13 @@ public class Item implements Parcelable {
     public final long id;
     public final String mimeType;
     public final Uri uri;
+    public final String path;
     public final long size;
     public final long duration; // only for video, in ms
 
-    private Item(long id, String mimeType, long size, long duration) {
+    private Item(long id, String path, String mimeType, long size, long duration) {
         this.id = id;
+        this.path = path;
         this.mimeType = mimeType;
         Uri contentUri;
         if (isImage()) {
@@ -66,6 +68,7 @@ public class Item implements Parcelable {
 
     private Item(Parcel source) {
         id = source.readLong();
+        path = source.readString();
         mimeType = source.readString();
         uri = source.readParcelable(Uri.class.getClassLoader());
         size = source.readLong();
@@ -74,6 +77,7 @@ public class Item implements Parcelable {
 
     public static Item valueOf(Cursor cursor) {
         return new Item(cursor.getLong(cursor.getColumnIndex(MediaStore.Files.FileColumns._ID)),
+                cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.DATA)),
                 cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.MIME_TYPE)),
                 cursor.getLong(cursor.getColumnIndex(MediaStore.MediaColumns.SIZE)),
                 cursor.getLong(cursor.getColumnIndex("duration")));
@@ -87,6 +91,7 @@ public class Item implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
+        dest.writeString(path);
         dest.writeString(mimeType);
         dest.writeParcelable(uri, 0);
         dest.writeLong(size);
@@ -158,6 +163,7 @@ public class Item implements Parcelable {
                 "id=" + id +
                 ", mimeType='" + mimeType + '\'' +
                 ", uri=" + uri +
+                ", path='" + path + '\'' +
                 ", size=" + size +
                 ", duration=" + duration +
                 '}';
