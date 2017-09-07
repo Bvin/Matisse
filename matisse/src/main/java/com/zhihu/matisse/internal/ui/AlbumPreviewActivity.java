@@ -23,6 +23,7 @@ import com.zhihu.matisse.internal.entity.Album;
 import com.zhihu.matisse.internal.entity.Item;
 import com.zhihu.matisse.internal.model.AlbumMediaCollection;
 import com.zhihu.matisse.internal.ui.adapter.PreviewPagerAdapter;
+import com.zhihu.matisse.internal.ui.widget.CheckView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,11 +47,11 @@ public class AlbumPreviewActivity extends BasePreviewActivity implements
         mCollection.load(album);
 
         Item item = getIntent().getParcelableExtra(EXTRA_ITEM);
-        /*if (mSpec.countable) {
-            mCheckView.setCheckedNum(mSelectedCollection.checkedNumOf(item));
+        if (mSpec.countable) {
+            mCheckView.setChecked(mSelectedCollection.checkedNumOf(item) != CheckView.UNCHECKED);
         } else {
             mCheckView.setChecked(mSelectedCollection.isSelected(item));
-        }*/
+        }
         updateSize(item);
     }
 

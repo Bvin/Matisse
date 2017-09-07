@@ -20,6 +20,7 @@ import android.support.annotation.Nullable;
 
 import com.zhihu.matisse.internal.entity.Item;
 import com.zhihu.matisse.internal.model.SelectedItemCollection;
+import com.zhihu.matisse.internal.ui.widget.CheckView;
 
 import java.util.List;
 
@@ -33,11 +34,11 @@ public class SelectedPreviewActivity extends BasePreviewActivity {
         List<Item> selected = bundle.getParcelableArrayList(SelectedItemCollection.STATE_SELECTION);
         mAdapter.addAll(selected);
         mAdapter.notifyDataSetChanged();
-        /*if (mSpec.countable) {
-            mCheckView.setCheckedNum(1);
+        if (mSpec.countable) {
+            mCheckView.setChecked(1 != CheckView.UNCHECKED);
         } else {
             mCheckView.setChecked(true);
-        }*/
+        }
         mPreviousPos = 0;
         updateSize(selected.get(0));
     }

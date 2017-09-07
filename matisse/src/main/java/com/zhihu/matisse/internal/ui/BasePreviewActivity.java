@@ -51,7 +51,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
 
     protected int mPreviousPos = -1;
     private TextView mSelectCount;
-    private CheckBox mCheckView;
+    protected CheckBox mCheckView;
     private TextView mButtonApply;
 
     @Override
