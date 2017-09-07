@@ -87,7 +87,7 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                                                     getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
                                             .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                                             .thumbnailScale(0.85f)
-                                            .imageEngine(new GlideEngine())
+                                            .imageEngine(new FrescoEngine())
                                             .forResult(REQUEST_CODE_CHOOSE);
                                     break;
                                 case R.id.dracula:
