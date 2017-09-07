@@ -68,6 +68,7 @@
             android:layout_gravity="right|center_vertical"
             android:stateListAnimator="@null"
             android:layout_marginRight="16dp"
+            android:layout_marginLeft="10dp"
             android:background="@drawable/bg_round_button"
             android:layout_width="50dp"
             android:layout_height="24dp"/>

@@ -138,8 +138,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_apply) {
-            sendBackResult(true);
-            finish();
+            onBackPressed();
         }
     }
 
