@@ -333,8 +333,8 @@ public class MatisseActivity extends AppCompatActivity implements
         intent.putExtra(AlbumPreviewActivity.EXTRA_ALBUM, album);
         intent.putExtra(AlbumPreviewActivity.EXTRA_ITEM, item);
         intent.putExtra(BasePreviewActivity.EXTRA_DEFAULT_BUNDLE, mSelectedCollection.getDataWithBundle());
-        //startActivityForResult(intent, REQUEST_CODE_PREVIEW);
-        return false;// 返回false将代理为选择事件
+        startActivityForResult(intent, REQUEST_CODE_PREVIEW);
+        return true;// 返回false将代理为选择事件
     }
 
     @Override
